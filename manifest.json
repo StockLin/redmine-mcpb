@@ -1,0 +1,133 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/mcpb/main/schemas/mcpb-manifest-v0.3.schema.json",
+  "manifest_version": "0.3",
+  "name": "redmine",
+  "display_name": "Redmine",
+  "version": "0.0.0",
+  "description": "讓 Claude 代你操作 Redmine：查詢、建立、修改、記工時、附件與刪除（刪除與重大異動會先請你確認）",
+  "long_description": "以你自己的 Redmine API 金鑰連線，Claude 只能看到、改到你在 Redmine 上本來就有權限的內容。刪除與重大異動會先請你確認。\n\n**取得 API 金鑰：** 登入你的 Redmine，打開「我的帳號」→ 右側「API 存取金鑰」→「顯示」（也可以直接打開 `你的 Redmine 網址/my/api_key`），按「Configure」貼上即可。\n\n---\n\nConnects with your own Redmine API key, so Claude can only see and change what you already have access to in Redmine. Deletions and other high-impact changes ask for your confirmation first.\n\n**Get your API key:** sign in to your Redmine, open \"My account\" → \"API access key\" → \"Show\" (or open `<your Redmine URL>/my/api_key`), then click \"Configure\" and paste it.",
+  "author": {
+    "name": "StarkLin",
+    "email": "liangyun.stark@gmail.com",
+    "url": "https://github.com/StockLin"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/StockLin/redmine-mcpb"
+  },
+  "homepage": "https://github.com/StockLin/redmine-mcpb",
+  "license": "MIT",
+  "keywords": [
+    "redmine",
+    "issue",
+    "project management"
+  ],
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.mjs",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/server/index.mjs",
+        "${user_config.allowed_directories}"
+      ],
+      "env": {
+        "REDMINE_URL": "${user_config.redmine_url}",
+        "REDMINE_API_KEY": "${user_config.api_key}"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "list_issues",
+      "description": "依指派人、專案、狀態等條件查詢 issue"
+    },
+    {
+      "name": "get_issue",
+      "description": "查看 issue 完整內容、備註、子任務與附件"
+    },
+    {
+      "name": "list_projects",
+      "description": "列出有權限的專案"
+    },
+    {
+      "name": "get_project_options",
+      "description": "查看專案的追蹤標籤、狀態、成員、版本等可選值"
+    },
+    {
+      "name": "list_time_entries",
+      "description": "查詢工時並加總"
+    },
+    {
+      "name": "create_issue",
+      "description": "建立 issue"
+    },
+    {
+      "name": "update_issue",
+      "description": "修改 issue 欄位或加備註"
+    },
+    {
+      "name": "bulk_update_issues",
+      "description": "批次修改多張 issue（5 張以上需確認）"
+    },
+    {
+      "name": "log_time",
+      "description": "記錄工時"
+    },
+    {
+      "name": "upload_attachment",
+      "description": "上傳附件到 issue"
+    },
+    {
+      "name": "download_attachment",
+      "description": "下載附件到本機"
+    },
+    {
+      "name": "delete_issue",
+      "description": "刪除 issue（需確認）"
+    },
+    {
+      "name": "delete_time_entry",
+      "description": "刪除工時（需確認）"
+    },
+    {
+      "name": "redmine_request",
+      "description": "呼叫其他 Redmine API（刪除與專案設定變更需確認）"
+    },
+    {
+      "name": "confirm_action",
+      "description": "使用者同意後執行暫停中的操作"
+    }
+  ],
+  "compatibility": {
+    "platforms": [
+      "darwin",
+      "win32"
+    ],
+    "runtimes": {
+      "node": ">=20.11.0"
+    }
+  },
+  "user_config": {
+    "redmine_url": {
+      "type": "string",
+      "title": "Redmine 網址 / URL",
+      "description": "你的 Redmine 網址，例如 https://redmine.example.com。Your Redmine URL, e.g. https://redmine.example.com",
+      "required": true
+    },
+    "api_key": {
+      "type": "string",
+      "title": "Redmine API 金鑰 / API key",
+      "description": "Redmine「我的帳號」→「API 存取金鑰」→「顯示」，複製後貼上。In Redmine: My account → API access key → Show, then paste it here.",
+      "sensitive": true,
+      "required": true
+    },
+    "allowed_directories": {
+      "type": "directory",
+      "title": "允許存取附件的資料夾（選填）/ Folders for attachments (optional)",
+      "description": "Claude 只能從這些資料夾上傳檔案、或把附件下載到這些資料夾；不設定就不能上傳/下載附件。Claude can only upload from, or save attachments to, these folders. Leave empty to disable attachments.",
+      "multiple": true,
+      "required": false
+    }
+  }
+}

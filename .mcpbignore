@@ -1,0 +1,12 @@
+node_modules/
+src/
+scripts/
+.github/
+docs/
+tsconfig.json
+package.json
+package-lock.json
+*.mcpb
+.git/
+.gitignore
+*.md
