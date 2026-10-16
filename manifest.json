@@ -3,7 +3,7 @@
   "manifest_version": "0.3",
   "name": "redmine",
   "display_name": "Redmine",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "讓 Claude 代你操作 Redmine：查詢、建立、修改、記工時、附件與刪除（刪除與重大異動會先請你確認）",
   "long_description": "以你自己的 Redmine API 金鑰連線，Claude 只能看到、改到你在 Redmine 上本來就有權限的內容。刪除與重大異動會先請你確認。\n\n**取得 API 金鑰：** 登入你的 Redmine，打開「我的帳號」→ 右側「API 存取金鑰」→「顯示」（也可以直接打開 `你的 Redmine 網址/my/api_key`），按「Configure」貼上即可。\n\n---\n\nConnects with your own Redmine API key, so Claude can only see and change what you already have access to in Redmine. Deletions and other high-impact changes ask for your confirmation first.\n\n**Get your API key:** sign in to your Redmine, open \"My account\" → \"API access key\" → \"Show\" (or open `<your Redmine URL>/my/api_key`), then click \"Configure\" and paste it.",
   "author": {
